@@ -1,4 +1,4 @@
-import {scale, interchange, replacement, checkZeroRow } from '../linearAlgebraFunctions/mathFunctions';
+import {scale, interchange, replacement, checkZeroRow, checkValidMatrix } from '../linearAlgebraFunctions/mathFunctions';
 
 test("checkZeroRow returns True", () => {
   let testRow = [0, 0, 0, 0];
@@ -27,3 +27,73 @@ test("scale does not alter original row", () => {
   expect(row).toEqual([1, 2, 3, 4]);
 });
 
+test("interchange swaps rows", () => {
+  let test1 = [
+    [1, 1, 1],
+    [2, 2, 2],
+    [3, 3, 3],
+  ]
+  interchange(test1, 0, 2);
+  expect(test1).toEqual([
+    [3, 3, 3],
+    [2, 2, 2],
+    [1, 1, 1]
+  ]);
+  interchange(test1, 2, 1);
+  expect(test1).toEqual([
+    [3, 3, 3],
+    [1, 1, 1],
+    [2, 2, 2]
+  ]);
+});
+
+test("replacement adds scalar of one row to another.", () => {
+  let test = [
+    [1, 1, 1],
+    [2, 2, 2]
+  ];
+
+  replacement(test, 0, 1, 1);
+  expect(test).toEqual([
+    [1, 1, 1],
+    [3, 3, 3]
+  ]);
+  
+  replacement(test, 1, 0, 2);
+  expect(test).toEqual([
+    [7, 7, 7],
+    [3, 3, 3]
+  ]);
+});
+
+test("check valid matrix returns true", () => {
+  let test1 = [
+    [1, 1, 1],
+    [2, 2, 2]
+  ]
+
+  let test2 = [
+    [1],
+    [2],
+    [3],
+  ]
+
+  expect(checkValidMatrix(test1)).toBe(true);
+  expect(checkValidMatrix(test2)).toBe(true);
+})
+
+test("check valid matrix returns false", () => {
+  let test1 = [
+    [1, 1, 1],
+    [2, 2]
+  ]
+
+  let test2 = [
+    [1, 2],
+    [2],
+    [3, 3, 3]
+  ]
+
+  expect(checkValidMatrix(test1)).toBe(false);
+  expect(checkValidMatrix(test2)).toBe(false);
+})
