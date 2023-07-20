@@ -1,14 +1,17 @@
 import Matrix from "./components/Matrix";
+import Input from "./components/Input";
+import { useState } from "react";
 
 function App() {
-  let matrix = [
-    [1, 0, 0],
-    [0, 1, 1],
-    [0, 0, 1]
-  ]
+  const [currMatrix, setCurrMatrix] = useState([
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ]);
   return (
     <div>
-      <Matrix currMatrix={matrix} />
+      <Input currMatrix={currMatrix} setCurrMatrix={setCurrMatrix} />
+      <Matrix currMatrix={currMatrix} />
     </div>
   );
 }
