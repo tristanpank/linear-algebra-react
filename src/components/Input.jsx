@@ -1,7 +1,7 @@
 import rref from "../linearAlgebraFunctions/rref";
 import { useEffect, useState } from "react";
 
-export default function Input({currMatrix, setCurrMatrix}) {
+export default function Input({currMatrix, setCurrMatrix, setTriggerRender, triggerRender }) {
   const [rows, setRows] = useState(3);
   const [cols, setCols] = useState(3);
   const [valueMatrix, setValueMatrix] = useState([
@@ -28,14 +28,64 @@ export default function Input({currMatrix, setCurrMatrix}) {
       tempMatrix.push(<div>{row}</div>);
     }
     setInputMatrix(tempMatrix);
+    
+    let tempValMatrix = valueMatrix;
+    
+    if (rows < 0) {
+      setRows(0);
+      return;
+    }
+
+    if (cols < 0) {
+      setCols(0);
+      return;
+    }
+
+    if (rows === 0 || cols === 0) {
+      setValueMatrix([[]]);
+      return;
+    }
+
+    while (rows < tempValMatrix.length) {
+      tempValMatrix.pop();
+    }
+
+    while (cols < tempValMatrix[0].length) {
+      for (let row of tempValMatrix) {
+        row.pop();
+      }
+    }
+
+    while (rows > tempValMatrix.length) {
+      let row = [];
+      for (let i = 0; i < tempValMatrix[0].length; i++) {
+        row.push(0);
+      }
+      tempValMatrix.push(row);
+    }
+
+    while (cols > tempValMatrix[0].length) {
+      for (let row of tempValMatrix) {
+        row.push(0);
+      }
+    }
+
+    setValueMatrix(tempValMatrix);
+
   }, [rows, cols]);
 
-  const handleSubmit = async () => {
-    setCurrMatrix(valueMatrix);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let rrefMatrix = JSON.parse(JSON.stringify(valueMatrix));
+    await rref(rrefMatrix);
+    setCurrMatrix(rrefMatrix);
+    console.log(rrefMatrix);
+    console.log(valueMatrix);
+    setTriggerRender(!triggerRender);
   }
 
   return(
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>Row number</label>
       <input type="number" onChange={(e) => (e.target.value > 0) ? setRows(e.target.value) : setRows(0)}></input>
       <label>Col number</label>

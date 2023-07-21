@@ -8,10 +8,11 @@ function App() {
     [0, 0, 0],
     [0, 0, 0]
   ]);
+  const [triggerRender, setTriggerRender] = useState(true);
   return (
     <div>
-      <Input currMatrix={currMatrix} setCurrMatrix={setCurrMatrix} />
-      <Matrix currMatrix={currMatrix} />
+      <Input currMatrix={currMatrix} setCurrMatrix={setCurrMatrix} setTriggerRender={setTriggerRender} triggerRender={triggerRender} />
+      <Matrix key={currMatrix} currMatrix={currMatrix} triggerRender={triggerRender} />
     </div>
   );
 }

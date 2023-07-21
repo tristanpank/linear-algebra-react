@@ -1,4 +1,4 @@
-export default function Matrix({currMatrix}) {
+export default function Matrix({currMatrix, triggerRender }) {
   let i = -1;
   const display = currMatrix.map(row => {
     return row.map(col => {
