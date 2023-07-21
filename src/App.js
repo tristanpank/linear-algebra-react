@@ -10,7 +10,7 @@ function App() {
   ]);
   const [triggerRender, setTriggerRender] = useState(true);
   return (
-    <div>
+    <div className="flex-col justify-center items-center bg-blue-50 w-screen">
       <Input currMatrix={currMatrix} setCurrMatrix={setCurrMatrix} setTriggerRender={setTriggerRender} triggerRender={triggerRender} />
       <Matrix key={currMatrix} currMatrix={currMatrix} triggerRender={triggerRender} />
     </div>

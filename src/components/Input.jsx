@@ -22,8 +22,9 @@ export default function Input({currMatrix, setCurrMatrix, setTriggerRender, trig
           temp[i][j] = Number(e.target.value);
           console.log(e.target.value);
           setValueMatrix(temp);
-        }}></input>
+        }} className={`border border-black text-center`} style={{width: `${1/cols * 100}%`}}></input>
         row.push(col);
+        
       }
       tempMatrix.push(<div>{row}</div>);
     }
@@ -85,12 +86,12 @@ export default function Input({currMatrix, setCurrMatrix, setTriggerRender, trig
   }
 
   return(
-    <form onSubmit={handleSubmit}>
-      <label>Row number</label>
-      <input type="number" onChange={(e) => (e.target.value > 0) ? setRows(e.target.value) : setRows(0)}></input>
+    <form onSubmit={handleSubmit} className="flex-col justify-center items-center">
+      <label className="font-bold">Row number</label>
+      <input type="number" onChange={(e) => (e.target.value > 0) ? setRows(e.target.value) : setRows(0)} className="text-right border border-black m-2"></input>
       <label>Col number</label>
-      <input type="number" onChange={(e) => (e.target.value > 0) ? setCols(e.target.value) : setCols(0)}></input>
-      <div>{inputMatrix}</div>
+      <input type="number" onChange={(e) => (e.target.value > 0) ? setCols(e.target.value) : setCols(0)} className="text-right border border-black m-2"></input>
+      <div className="flex-col w-auto">{inputMatrix}</div>
       <button type="submit">Submit</button>
     </form>
   )

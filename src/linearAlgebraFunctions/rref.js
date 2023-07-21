@@ -34,6 +34,7 @@ function rref(matrix) {
         pivot++;
         if (pivot === colLen) {
           removeNegativeZeroes(matrix);
+          roundNumbers(matrix);
           return;
         }
       }
@@ -55,7 +56,7 @@ function rref(matrix) {
   }
   
   removeNegativeZeroes(matrix);
-  
+  roundNumbers(matrix);
   return;
 
 }
@@ -66,6 +67,14 @@ function removeNegativeZeroes(matrix) {
       if (row[i] === -0) {
         row[i] = Math.abs(row[i]);
       }
+    }
+  }
+}
+
+function roundNumbers(matrix) {
+  for (let row of matrix) {
+    for (let i = 0; i < row.length; i++) {
+      row[i] = +row[i].toFixed(2);
     }
   }
 }
